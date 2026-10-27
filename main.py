@@ -20,6 +20,7 @@ def detectar(imagen: UploadFile = File(...), x_api_key: str = Header(None)):
         raise HTTPException(status_code=401, detail="API key inválida")
 
     img = Image.open(imagen.file).convert("RGB")
+    img.thumbnail((1280, 1280))
     resultados = model.predict(img, imgsz=640, conf=0.25, verbose=False)
 
     detecciones = []
